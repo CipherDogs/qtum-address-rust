@@ -75,11 +75,23 @@ mod tests {
         let eth_addresses = [
             "6c89a1a6ca2ae7c00b248bb2832d6f480f27da68",
             "49a80104c0d27a9ba29678d07e87a57151107613",
+            "7926223070547d2d15b2ef5e7383e541c338ffe9",
+            "2352be3db3177f0a07efbe6da5857615b8c9901d",
+            "69b004ac2b3993bf2fdf56b02746a1f57997420d",
+            "8c647515f03daeefd09872d7530fa8d8450f069a",
+            "2191744eb5ebeac90e523a817b77a83a0058003b",
+            "88b0bf4b301c21f8a47be2188bad6467ad556dcf",
         ];
 
         let qtum_addresses = [
             "qTTH1Yr2eKCuDLqfxUyBLCAjmomQ8pyrBt",
             "qQGqkA16ZY6bCYy7Qjr77eU4BPsdadibCG",
+            "qUbxboqjBRp96j3La8D1RYkyqx5uQbJPoW",
+            "qLn9vqbr2Gx3TsVR9QyTVB5mrMoh4x43Uf",
+            "qTCCy8qy7pW94EApdoBjYc1vQ2w68UnXPi",
+            "qWMi6ne9mDQFatRGejxdDYVUV9rQVkAFGp",
+            "qLcshhsRS6HKeTKRYFdpXnGVZxw96QQcfm",
+            "qW28njWueNpBXYWj2KDmtFG2gbLeALeHfV",
         ];
 
         let qtum = QtumAddress { prefix: 0x78 };
