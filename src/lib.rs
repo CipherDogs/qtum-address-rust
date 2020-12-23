@@ -37,7 +37,10 @@ impl QtumAddress {
             return Err("Invalid address");
         }
 
-        let mut address_bytes = hex::decode(address).unwrap();
+        let mut address_bytes = match hex::decode(address) {
+            Ok(bytes) => bytes,
+            Err(_) => return Err("Invalid address"),
+        };
         address_bytes.insert(0, self.prefix);
 
         let checksum = self.hash_sha256(&self.hash_sha256(&address_bytes));
