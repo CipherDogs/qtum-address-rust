@@ -3,8 +3,11 @@ use bitcoin_hashes::sha256;
 use bitcoin_hashes::Hash;
 use hex;
 
-/// 3a - mainnet
-/// 78 - testnet
+/// Rust lib for en/decoding address to Qtum/Ethereum format
+///
+/// 0x3a - mainnet
+///
+/// 0x78 - testnet
 pub struct QtumAddress {
     prefix: u8,
 }

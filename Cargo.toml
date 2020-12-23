@@ -1,6 +1,6 @@
 [package]
 name = "qtum-address-rust"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["DEADBLACKCLOVER <deadblackclover@protonmail.com>"]
 description = "Rust lib for en/decoding address to Qtum/Ethereum format"
 edition = "2018"
