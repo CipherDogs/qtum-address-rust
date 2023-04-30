@@ -1,18 +1,65 @@
+//! qtum-address-rust
+//!
+//! Rust lib for en/decoding address to Qtum/Ethereum format
+//!
+//! ```rust
+//! use qtum_address_rust::*;
+//!
+//! let addr = "qTTH1Yr2eKCuDLqfxUyBLCAjmomQ8pyrBt";
+//!
+//! let qtum = QtumAddress::new(QtumNetwork::Testnet); // testnet network prefix
+//! let eth_addr = qtum.gethexaddress(addr).unwrap(); // 6c89a1a6ca2ae7c00b248bb2832d6f480f27da68
+//! let qtum_addr = qtum.fromhexaddress(&eth_addr).unwrap(); // qTTH1Yr2eKCuDLqfxUyBLCAjmomQ8pyrBt
+//!
+//! assert_eq!(addr, qtum_addr)
+//! ```
+//!
 use basex_rs::{BaseX, Decode, Encode, BITCOIN};
 use bitcoin_hashes::sha256;
 use bitcoin_hashes::Hash;
 use hex;
 
-/// Rust lib for en/decoding address to Qtum/Ethereum format
-///
-/// 0x3a - mainnet
-///
-/// 0x78 - testnet
+/// Enum of Qtum networks
+pub enum QtumNetwork {
+    /// Prefix address - 0x3a
+    Mainnet,
+    /// Prefix address - 0x78
+    Testnet,
+}
+
+impl QtumNetwork {
+    /// Getting prefix byte from network type
+    pub fn to_prefix_byte(&self) -> u8 {
+        match self {
+            QtumNetwork::Mainnet => 0x3a,
+            QtumNetwork::Testnet => 0x78,
+        }
+    }
+}
+
+impl From<u8> for QtumNetwork {
+    fn from(item: u8) -> Self {
+        match item {
+            0x3a => QtumNetwork::Mainnet,
+            0x78 => QtumNetwork::Testnet,
+            _ => panic!(""),
+        }
+    }
+}
+
+/// Structure for conversion ktum addresses
 pub struct QtumAddress {
     prefix: u8,
 }
 
 impl QtumAddress {
+    /// Initialization of the address conversion structure
+    pub fn new(network: QtumNetwork) -> Self {
+        Self {
+            prefix: network.to_prefix_byte(),
+        }
+    }
+
     /// Converts a base58 pubkeyhash address to a hex address for use in smart contracts.
     pub fn gethexaddress(&self, address: &str) -> Result<String, &str> {
         if address.is_empty() {
@@ -46,7 +93,7 @@ impl QtumAddress {
         };
         address_bytes.insert(0, self.prefix);
 
-        let checksum = self.hash_sha256(&self.hash_sha256(&address_bytes));
+        let checksum = self.hash(&self.hash(&address_bytes));
         match checksum.get(0..4) {
             Some(hash) => {
                 for byte in hash.iter() {
@@ -67,7 +114,7 @@ impl QtumAddress {
     }
 
     /// SHA256 hash function
-    fn hash_sha256(&self, byte: &Vec<u8>) -> Vec<u8> {
+    fn hash(&self, byte: &Vec<u8>) -> Vec<u8> {
         hex::decode(sha256::Hash::hash(byte.as_slice()).to_string()).unwrap()
     }
 }
@@ -100,7 +147,8 @@ mod tests {
             "qW28njWueNpBXYWj2KDmtFG2gbLeALeHfV",
         ];
 
-        let qtum = QtumAddress { prefix: 0x78 };
+        let qtum = QtumAddress::new(QtumNetwork::Testnet);
+
         for addr in qtum_addresses.iter() {
             let eth_addr = qtum.gethexaddress(addr).unwrap();
             let qtum_addr = qtum.fromhexaddress(&eth_addr).unwrap();

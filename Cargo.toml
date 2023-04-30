@@ -1,13 +1,13 @@
 [package]
 name = "qtum-address-rust"
-version = "0.1.1"
+version = "0.2.0"
 authors = ["DEADBLACKCLOVER <deadblackclover@protonmail.com>"]
 description = "Rust lib for en/decoding address to Qtum/Ethereum format"
 edition = "2018"
 license = "GPL-3.0"
 readme = "README.md"
-homepage = "https://github.com/deadblackclover/qtum-address-rust"
-repository = "https://github.com/deadblackclover/qtum-address-rust"
+homepage = "https://github.com/CipherDogs/qtum-address-rust"
+repository = "https://github.com/CipherDogs/qtum-address-rust"
 keywords = ["qtum", "blockchain"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
